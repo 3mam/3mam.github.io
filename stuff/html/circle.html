@@ -1,0 +1,58 @@
+<html>
+<style>
+    .circle {
+        width: 100px;
+        height: 100px;
+        background-color: aqua;
+        border-style: solid;
+        border-width: 10px;
+        border-radius: 50%;
+        border-color: #4285F4 #DB4437 #F4B400 #0F9D58;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+    }
+
+    #circle1 {
+        background-color: aquamarine;
+    }
+
+    #circle2 {
+        transform: rotate(180deg);
+        left: 55%;
+        top: 55%;
+    }
+
+    #circle3 {
+        background-color: lavender;
+        transform: rotate(90deg);
+        left: 50%;
+        top: 60%;
+    }
+
+    #circle4 {
+        left: 0%;
+        top: 0%;
+        background-color: azure;
+        animation: rotate_function 12s infinite linear;
+    }
+
+    @keyframes rotate_function {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(359deg);
+        }
+    }
+</style>
+
+<body>
+    <div class=circle id=circle1></div>
+    <div class=circle id=circle2></div>
+    <div class=circle id=circle3></div>
+    <div class=circle id=circle4></div>
+</body>
+
+</html>
