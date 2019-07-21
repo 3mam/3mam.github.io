@@ -1,0 +1,173 @@
+/* reset CSS */
+* {
+	margin: 0;
+	padding: 0;
+}
+/* web fonts */
+@font-face {
+    font-family: 'Titillium';
+    src: url('fonts/TitilliumText22L001-webfont.eot');
+    src: url('fonts/TitilliumText22L001-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/TitilliumText22L001-webfont.woff') format('woff'),
+         url('fonts/TitilliumText22L001-webfont.ttf') format('truetype'),
+         url('fonts/TitilliumText22L001-webfont.svg#TitilliumText22LThin') format('svg');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Titillium';
+    src: url('fonts/TitilliumText22L003-webfont.eot');
+    src: url('fonts/TitilliumText22L003-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/TitilliumText22L003-webfont.woff') format('woff'),
+         url('fonts/TitilliumText22L003-webfont.ttf') format('truetype'),
+         url('fonts/TitilliumText22L003-webfont.svg#TitilliumText22LRegular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Titillium';
+    src: url('fonts/TitilliumText22L005-webfont.eot');
+    src: url('fonts/TitilliumText22L005-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/TitilliumText22L005-webfont.woff') format('woff'),
+         url('fonts/TitilliumText22L005-webfont.ttf') format('truetype'),
+         url('fonts/TitilliumText22L005-webfont.svg#TitilliumText22LBold') format('svg');
+    font-weight: 700;
+    font-style: normal;
+}
+
+body {
+	max-width: 1180px;
+	margin: 0 auto;	
+}
+
+header h1 {
+	font: 700 59px Titillium, Arial, sans-serif;
+	color: rgb(232,113,35);
+	text-shadow: 0 0 5px white,
+	             3px 3px 5px rgba(0,0,0,.5);
+}
+
+nav ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;	
+}
+
+nav li {
+	display: inline;	
+}
+figure:hover figcaption {
+	opacity: 1;	
+}
+nav a {
+	display: inline-block;
+	padding: 9px 20px 5px 20px;
+	border-radius:20px;
+	text-decoration: none;	
+	font-family: Titillium, Arial, sans-serif;
+	font-weight: 700;
+	color: white;
+	text-shadow: 2px 2px 4px rgba(0,0,0,1);
+	text-transform:uppercase;
+	font-size: .9em;
+	letter-spacing: .1em;
+	background-color: rgb(232,113,35);
+	background: -webkit-linear-gradient(top, rgba(232,113,35,1),rgba(232,113,35,.5));
+	background: -moz-linear-gradient(top, rgba(232,113,35,1),rgba(232,113,35,.5));
+	background: -o-linear-gradient(top, rgba(232,113,35,1),rgba(232,113,35,.5));
+	background: linear-gradient(top, rgba(232,113,35,1),rgba(232,113,35,.5));
+	border: 1px solid rgb(232,113,35);
+	margin-right: 5px;
+}
+
+figcaption strong {
+	font-weight: 700;
+	display: block;
+}
+
+footer {
+	position: sticky;
+	bottom: 0;
+}
+
+footer .copyright {
+	font-family: Titillium, Arial, sans-serif;
+	font-weight: 700;
+	color: white;
+	background-color: black; 
+	display: flex;
+	justify-content: center;
+}
+
+
+/* STYLIZACJA BANNERA */
+
+header {
+	display: flex;
+	margin-top: 4%;
+	margin-bottom: 1%;
+	flex-flow: row nowrap;
+}
+
+
+header img{
+	z-index: -1;
+	order: -1;
+	position: absolute;
+	margin-left: -100px;
+	margin-top: -100px;
+}
+
+header .badge {
+}
+
+header h1 {
+	margin-bottom: -1%;
+}
+
+header nav {
+	align-self: flex-end;
+	order: 0;
+	width: 60%;
+	margin-right: -2.3%;
+}
+
+/* Dodawanie podpisu do zdjęcia */
+
+
+.gallery {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center; /* horizontal */
+	justify-content: center; /* vertical */
+}
+
+.gallery figure {
+	display: flex;
+	align-items: center; /* horizontal */
+	width: 300px;
+	height: 210;
+	margin: 5px;
+}
+
+.gallery figcaption {
+	background: rgb(153,153,153);
+	font-family: Titillium;
+	font-weight: 400;
+	font-size: 400;
+	color: white;
+	opacity: 0;
+	transition: opacity .75s ease-out;
+	width: 300px;
+	height: 210;
+	position: absolute;
+	box-sizing: border-box;
+	padding: 1%;
+}
+
+.gallery figcaption:hover {
+	opacity: 0.9;
+}
+
+/* STYLIZACJA STOPKI */
+
