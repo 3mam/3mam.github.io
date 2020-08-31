@@ -1,0 +1,15 @@
+.foo {
+	position: absolute;
+	top: 40%;
+	left: 40%;
+	width: 10%;
+	height: 10%;
+	background: url(https://interactive-examples.mdn.mozilla.net/media/examples/balloon-small.jpg) 0 0;
+	clip-path: circle(40%);
+}
+
+.text {
+	margin: 10%;
+	color: white;
+	word-wrap: break-word;
+}
