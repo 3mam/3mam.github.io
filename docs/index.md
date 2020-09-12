@@ -25,13 +25,13 @@ Syntax highlighted code block
 
 [Link](url) and ![Image](src)
 ```
-[code]
+```
 // Javascript code with syntax highlighting.
 var fun = function lang(l) {
   dateformat.i18n = require('./lang/' + l)
   return true;
 }
-[/cpde]
+```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
