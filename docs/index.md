@@ -1,4 +1,4 @@
-{% avatar [3mam] %}
+{% avatar 3mam %}
 
 ## Welcome to GitHub Pages
 
