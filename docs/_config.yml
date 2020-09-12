@@ -1,1 +1,5 @@
 theme: jekyll-theme-slate
+title: Konrad Chmielecki
+plugins:
+  - jekyll-avatar
+  - jekyll-sitemap
