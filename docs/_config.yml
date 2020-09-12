@@ -1,4 +1,5 @@
 theme: jekyll-theme-hacker
-title: Konrad Chmielecki
+title: 3mam
+author: Konrad Chmielecki
 plugins:
   - jekyll-sitemap
