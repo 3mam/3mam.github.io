@@ -1,4 +1,4 @@
-{% avatar [USERNAME] %}
+{% avatar [3mam] %}
 
 ## Welcome to GitHub Pages
 
