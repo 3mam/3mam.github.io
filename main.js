@@ -26,6 +26,7 @@ async function main() {
     entry.appendChild(document.createElement('br'))
     body.appendChild(entry)
   })
+  console.log(data)
 }
 
 main()
