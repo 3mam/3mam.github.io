@@ -35,7 +35,7 @@ img:hover {
 
 #logo {
   background-image: url('img/sakura.jpg');
-  background-position-y: -500px;
+  background-position-y: -10px;
   clip-path: url(#theSVGPath);
   height: 300px;
   display: flex;
