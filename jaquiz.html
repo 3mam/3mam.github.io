@@ -12,7 +12,17 @@
     margin: 0;
   }
 
-  @media (min-width: 800px) {}
+  @media (min-width: 800px) {
+    main {
+      width: 60vw;
+    }
+  }
+
+  @media (max-width: 800px) {
+    main {
+      width: 100vw;
+    }
+  }
 
   body {
     background-color: #ffccd6;
@@ -22,12 +32,10 @@
 
   main {
     background-color: #fffafb;
-    width: 100vw;
-    height: 100vh;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding-bottom: 2em;
   }
 
   #menu {
@@ -98,10 +106,10 @@
 <body>
   <main class="main">
     <section id="menu" hidden>
+      <div id="test"></div>
       <button class="default" onclick="setActiveWindow('quizcfg')">quiz</button>
       <button onclick="">test</button>
     </section>
-
 
     <section id="quizcfg" hidden>
       <form id="quizform">
@@ -142,6 +150,7 @@
       </div>
       <button class="default" onclick="setActiveWindow('menu')">menu</button>
     </section>
+    <footer><br></footer>
   </main>
   <script>
     var quizButtonPress = null
@@ -267,11 +276,7 @@
         default: return null
       }
     }
-    let scrollDown = () => {
-      setTimeout(() => {
-        window.scrollTo(0, window.innerWidth)
-      }, 200)
-    }
+    let resizeWindow = () => document.querySelector('main').style.height = `${window.innerHeight}px`
     let setQuizScoreDisplay = (value) => document.getElementById('quiztable').innerHTML = value
     let setOpacityChar = (value) => document.getElementById('char').style.opacity = `${value}%`
     let setTokenToDisplay = ({ token }) => document.getElementById('char').innerHTML = token
@@ -360,11 +365,13 @@
     }
 
     window.onload = () => {
+
+      document.body.clientWidth = innerHTML = window.innerHeight
       setQuizForm()
       setActiveWindow('menu')
-      scrollDown()
+      resizeWindow()
       window.onpopstate = () => {
-        scrollDown()
+        resizeWindow()
         switch (location.hash) {
           case '#quizcfg':
             setActiveWindow('quizcfg')
