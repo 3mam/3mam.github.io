@@ -12,34 +12,26 @@
     margin: 0;
   }
 
-  @media (min-width: 800px) {
-    .main {
-      width: 30%;
-    }
-
-    #char {
-      padding-bottom: 10%;
-    }
-
-    button {
-      margin: 1% 20%;
-    }
-  }
+  @media (min-width: 800px) {}
 
   body {
     background-color: #ffccd6;
     display: flex;
     justify-content: center;
-    overflow: hidden;
   }
 
   main {
     background-color: #fffafb;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 2em;
+  }
+
+  #menu {
+    padding-bottom: 50%;
   }
 
   #char {
@@ -51,12 +43,14 @@
   }
 
   button {
-    margin: 1% 0;
-    font-size: 3em;
-    width: 100%;
-    height: 4.5rem;
+    font-size: 2em;
+    padding: 0.5rem;
+    margin: 1rem auto;
+    width: 80%;
+    height: auto;
     border: 1px solid #db002c;
     border-radius: 10px;
+    display: table;
   }
 
   .ok {
@@ -74,20 +68,15 @@
     transition: 1s;
   }
 
-  #answer {
-    width: 18rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
   .quizform {
     font-size: 1.5em;
-    margin: 20% 0;
+    display: table;
+    margin: 40% auto;
   }
 
   select {
     font-size: 1em;
+    width: 100%;
   }
 
   #alphabet {
@@ -124,7 +113,8 @@
             <input type="radio" id="katakana" name="alphabet" value="katakana">
             <label for="katakana">Katakana</label>
           </section>
-          <label><b>How many letters:</b></label>
+          <br>
+          <p><b>How many letters</b></p>
           <select name="letters" id="letters">
             <option value="5">5</option>
             <option value="10">10</option>
@@ -277,6 +267,11 @@
         default: return null
       }
     }
+    let scrollDown = () => {
+      setTimeout(() => {
+        window.scrollTo(0, window.innerWidth)
+      }, 200)
+    }
     let setQuizScoreDisplay = (value) => document.getElementById('quiztable').innerHTML = value
     let setOpacityChar = (value) => document.getElementById('char').style.opacity = `${value}%`
     let setTokenToDisplay = ({ token }) => document.getElementById('char').innerHTML = token
@@ -318,13 +313,11 @@
 
       setTokenToDisplay(chars[0])
       setOpacityChar(100)
-      console.log(document.URL)
       return { ok: buttons[0], char: chars[0] }
     }
 
     let setQuizScore = (score) => {
       let s = score.join('\n')
-      console.log(s)
       setQuizScoreDisplay(s)
       setActiveWindow('quizscore')
     }
@@ -369,7 +362,9 @@
     window.onload = () => {
       setQuizForm()
       setActiveWindow('menu')
+      scrollDown()
       window.onpopstate = () => {
+        scrollDown()
         switch (location.hash) {
           case '#quizcfg':
             setActiveWindow('quizcfg')
@@ -382,6 +377,7 @@
             break
         }
       }
+
     }
   </script>
 </body>
