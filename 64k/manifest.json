@@ -4,13 +4,13 @@
   "background_color": "red",
   "icons": [
     {
-      "src": "/app/a.png",
+      "src": "/64k/app/a.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable"
     },
     {
-      "src": "/app/b.png",
+      "src": "/64k/app/b.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any"
