@@ -3,59 +3,46 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#317EFB" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="/app/a.png">
   <title>Document</title>
 </head>
 <style>
   * {
     padding: 0;
     margin: 0;
-  }
-
-  @media (min-width: 800px) {
-    main {
-      width: 30vw;
-    }
-  }
-
-  @media (max-width: 800px) {
-    main {
-      width: 100vw;
-    }
+    font-size: 4vh;
   }
 
   body {
-    background-color: #ffccd6;
+    background-color: #2e2e38;
     display: flex;
     justify-content: center;
   }
 
   main {
     background-color: #fffafb;
-
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
-    justify-content: flex-end;
-  }
-
-  #menu {
-    padding-bottom: 50%;
+    position: fixed;
+    width: auto;
+    height: 100%;
+    padding: 0 10vh;
   }
 
   #char {
-    font-size: 6em;
+    font-size: 15vh;
     text-align: center;
-    transition: 1s;
-    margin-bottom: 1rem;
-    opacity: 100%;
+    transition: opacity 1s;
   }
 
   button {
-    font-size: 2em;
-    padding: 0.5rem;
-    margin: 1rem auto;
-    width: 80%;
-    height: auto;
+    margin: 3vh;
+    width: 40vh;
+    height: 7vh;
     border: 1px solid #db002c;
     border-radius: 10px;
     display: table;
@@ -63,51 +50,45 @@
 
   .ok {
     background-color: #88ff4d;
-    transition: 1s;
+    transition: opacity 1s;
   }
 
   .bad {
     background-color: #ff4d70;
-    transition: 1s;
+    transition: opacity 1s;
   }
 
   .default {
     background-color: #ffccd6;
-    transition: 1s;
+    transition: opacity 1s;
   }
 
   .quizform {
-    font-size: 1.5em;
     display: table;
-    margin: 40% auto;
+    margin: 0 auto;
+    margin-bottom: 10vh;
   }
 
   select {
-    font-size: 1em;
     width: 100%;
+    text-align-last: center;
+    border-radius: 10px;
+    border: 1px solid #db002c;
   }
 
-  #alphabet {
-    padding: 0 10%;
-  }
-
-  .score {
-    font-size: 2em;
-    text-align: center;
-    padding: 20% 0;
-  }
-
-  h1 {
-    font-size: 3em;
-    text-align: center;
+  .logo {
+    background-color: #ffccd6;
+    margin: 0 -10vh;
+    padding: 2vh 5vh;
   }
 </style>
 
 <body>
   <main class="main">
+    <section class="logo">foo</section>
     <section id="menu" hidden>
       <button class="default" onclick="setActiveWindow('quizcfg')">quiz</button>
-      <button onclick="">test</button>
+      <button onclick="toggleFullScreen()">test</button>
     </section>
 
     <section id="quizcfg" hidden>
@@ -128,18 +109,22 @@
             <option value="15">15</option>
           </select>
         </div>
-        <button id="submit" type="submit" class="default">START</button>
+        <div id="submit">
+          <button type="submit" class="default">START</button>
+        </div>
       </form>
     </section>
 
 
     <section id="quiz" hidden>
-      <div id="char">ウ</div>
-      <section id="answer">
-        <button id="a" onclick="quizButtonPress(this.id)"> </button>
-        <button id="b" onclick="quizButtonPress(this.id)"> </button>
-        <button id="c" onclick="quizButtonPress(this.id)"> </button>
-        <button id="d" onclick="quizButtonPress(this.id)"> </button>
+      <section class="quiz">
+        <div id="char">ウ</div>
+        <section id="answer">
+          <button id="a" onclick="quizButtonPress(this.id)"> </button>
+          <button id="b" onclick="quizButtonPress(this.id)"> </button>
+          <button id="c" onclick="quizButtonPress(this.id)"> </button>
+          <button id="d" onclick="quizButtonPress(this.id)"> </button>
+        </section>
       </section>
     </section>
     <section id="quizscore" hidden>
@@ -149,9 +134,16 @@
       </div>
       <button class="default" onclick="setActiveWindow('menu')">menu</button>
     </section>
-    <footer><br></footer>
+    <footer></footer>
   </main>
   <script>
+    let toggleFullScreen = () => {
+      !document.fullscreenElement
+        ? document.documentElement.requestFullscreen()
+        : document.exitFullscreen
+          ? document.exitFullscreen()
+          : null
+    }
     var quizButtonPress = null
     var globalActiveWindow = ''
 
@@ -275,7 +267,6 @@
         default: return null
       }
     }
-    let resizeWindow = () => document.querySelector('main').style.height = `${window.innerHeight}px`
     let setQuizScoreDisplay = (value) => document.getElementById('quiztable').innerHTML = value
     let setOpacityChar = (value) => document.getElementById('char').style.opacity = `${value}%`
     let setTokenToDisplay = ({ token }) => document.getElementById('char').innerHTML = token
@@ -364,11 +355,10 @@
     }
 
     window.onload = () => {
+      //navigator.serviceWorker.register('/app/sw.js').then((reg) => console.log(reg.scope), (err) => console.log(err))
       setQuizForm()
-      setActiveWindow('menu')
-      resizeWindow()
+      setActiveWindow('quizcfg')
       window.onpopstate = () => {
-        resizeWindow()
         switch (location.hash) {
           case '#quizcfg':
             setActiveWindow('quizcfg')
@@ -381,7 +371,6 @@
             break
         }
       }
-
     }
   </script>
 </body>

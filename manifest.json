@@ -1,0 +1,22 @@
+{
+  "name": "foo",
+  "short_name": "foo",
+  "theme_color": "red",
+  "background_color": "red",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/app/kc.svg",
+      "purpose": "maskable any"
+    }
+  ],
+  "start_url": "/jaquiz.html",
+  "display": "standalone",
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.google.samples.apps.iosched"
+    }
+  ]
+}
