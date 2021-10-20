@@ -1,101 +1,94 @@
-import {pixel as d} from './pixel.js'
+let baseElement = element => ({
+  class: name => element.className = name,
+  disable: () => element.disabled = true,
+  enable: () => element.disabled = false,
+})
 
-const sp = [
-	3, 0, 3, 0, 3, 0, 1, 1, //8
-	0, 0, 0, 0, 0, 0, 0, 1, //16
-	3, 0, 2, 0, 0, 2, 0, 0, //24
-	0, 0, 0, 2, 2, 0, 0, 3, //32
-	3, 0, 0, 2, 2, 0, 0, 0, //40
-	0, 0, 2, 0, 0, 2, 0, 3, //48
-	3, 0, 0, 0, 0, 0, 0, 0, //56
-	0, 3, 0, 3, 0, 3, 0, 3, //64
-]
-const sp2 = [
-	3, 0, 3, 0, 3, 0, 1, 1, //8
-	0, 0, 0, 0, 0, 0, 0, 1, //16
-	3, 0, 2, 0, 0, 2, 0, 0, //24
-	0, 0, 0, 3, 3, 0, 0, 3, //32
-	3, 0, 0, 3, 3, 0, 0, 0, //40
-	0, 0, 2, 0, 0, 2, 0, 3, //48
-	3, 0, 0, 0, 0, 0, 0, 0, //56
-	0, 3, 0, 3, 0, 3, 0, 3, //64
-]
+let getElement = id => document.getElementById(id)
 
-const palette = Array(32 * 4).fill(0)
-palette[4] = 255
-palette[5] = 0
-palette[6] = 0
-palette[7] = 255
+let findActiveWindow = () => Array.from(document.getElementsByTagName('window'))
+  .filter(v => !v.hidden)[0]
 
-palette[8] = 0
-palette[9] = 255
-palette[10] = 0
-palette[11] = 255
+let findWindows = () => Array.from(document.getElementsByTagName('window'))
 
-palette[12] = 0
-palette[13] = 0
-palette[14] = 255
-palette[15] = 255
-
-const palette2 = Array(32 * 4).fill(0)
-palette2[4] = 255
-palette2[5] = 255
-palette2[6] = 0
-palette2[7] = 255
-
-palette2[8] = 0
-palette2[9] = 255
-palette2[10] = 255
-palette2[11] = 255
-
-palette2[12] = 255
-palette2[13] = 0
-palette2[14] = 255
-palette2[15] = 255
-
-d.set('canvas', 180, 320)
-d.uploadSprite(sp, { offsetX: 0, offsetY: 0, width: 8, height: 8 })
-d.uploadSprite(sp2, { offsetX: 8, offsetY: 0, width: 8, height: 8 })
-d.uploadPalette(palette, 0)
-d.uploadPalette(palette2, 1)
-//320, 180
-
-let a = 0
-let b = 100
-let xx = 0
-let yy = 0
-const f = delta => {
-	d.clear()
-	d.palette(0)
-	let foo = { offsetX: 0, offsetY: 0, width: 8, height: 8 }
-	d.sprite(foo)
-	for (let x = 0; x < 10; x++) {
-		d.position(8 * x, 0)
-		d.draw()
-	}
-	for (let x = 0; x < 10; x++) {
-		d.position(8 * x, 8 * 10)
-		d.draw()
-	}
-	for (let x = 0; x < 11; x++) {
-		d.position(8 * 10, 8 * x)
-		d.draw()
-	}
-
-	d.sprite({ offsetX: 0, offsetY: 0, width: 16, height: 16 })
-	d.palette(1)
-	d.position(100 + (Math.sin(a) * 10), 100 + (Math.cos(a) * 10))
-	d.draw()
-	let p = d.getPoint()
-	xx = p.x
-	yy = p.y
-	d.position(xx, yy)
-	d.draw()
-	a += 1 * delta
+let initCustomHtmlTagAttributes = () => {
+  Array.from(document.body.getElementsByTagName('*')).forEach(v => {
+    let getval = v.getAttribute('getval')
+    if (getval) {
+      let update = () => v.innerHTML = $element(getval).getValue()
+      update()
+      window.addEventListener('input', update)
+    }
+  })
 }
 
-document.addEventListener('keypress', (e) => {
-	if (e.key == 'f')
-		toggleFullScreen()
-})
-d.loop(f)
+let $form = formId => option => {
+  let obj = getElement(formId)
+  return {
+    disable: index => obj[option][index].disabled = true,
+    enable: index => obj[option][index].disabled = false,
+    setValue: val => obj[option].value = `${val}`,
+    getValue: () => obj[option].value,
+  }
+}
+
+let $element = elementId => {
+  let obj = getElement(elementId)
+  return {
+    opacity: val => obj.style.opacity = `${val}%`,
+    setHTML: val => obj.innerHTML = `${val}`,
+    getHTML: () => obj.innerHTML,
+    setValue: val => obj.value = `${val}`,
+    getValue: () => obj.value,
+    ...baseElement(obj),
+  }
+}
+
+let $input = inputId => {
+  let obj = getElement(inputId)
+  return {
+    setValue: val => obj.value = `${val}`,
+    getValue: () => obj.value,
+    setMin: val => obj.min = `${val}`,
+    getMin: () => obj.min,
+    setMax: val => obj.max = `${val}`,
+    getMax: () => obj.max,
+    ...baseElement(obj),
+  }
+}
+
+let $window = windowId => {
+  let win = getElement(windowId)
+  findActiveWindow().hidden = true
+  win.hidden = false
+  if (win.getAttribute('ignore') === null)
+    location.hash = `#${win.id}`
+}
+
+let $button = buttonId => {
+  let button = getElement(buttonId)
+  return {
+    click: fn => button.onclick = () => fn(button.id),
+    label: name => button.innerHTML = `${name}`,
+    ...baseElement(button),
+  }
+}
+
+let $toggleFullScreen = () => {
+  if (!document.fullscreenElement)
+    document.documentElement.requestFullscreen()
+  else if (document.exitFullscreen)
+    document.exitFullscreen()
+}
+
+let $app = fn => {
+  window.onload = fn
+  window.onpopstate = () => {
+    findWindows().forEach(w => {
+      if (location.hash.slice(1) === w.id && w.getAttribute('ignore') === null)
+        $window(w.id)
+    })
+  }
+  location.hash = `#${findActiveWindow().id}`
+  initCustomHtmlTagAttributes()
+}
